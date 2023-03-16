@@ -12,11 +12,19 @@ customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-b
 app = customtkinter.CTk()  # Lager boks
 app.geometry("390x240")
 
-def button_event():
-    print("button pressed")
 
-button = customtkinter.CTkButton(master=root_tk, text="CTkButton", command=button_event)
-button.pack(padx=20, pady=10)
+text_var = tkinter.StringVar(value="CTkLabel")
+
+label = customtkinter.CTkLabel(master=app,
+                               textvariable=text_var,
+                               width=120,
+                               height=25,
+                               fg_color=("white", "gray75"),
+                               corner_radius=8)
+label.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+
+
+
 
 app.mainloop()
 

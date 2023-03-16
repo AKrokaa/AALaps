@@ -14,8 +14,7 @@ app.geometry("390x240")
 
 
 
-def button_event():
-    Print(entry)
+
 
 
 #lager søke etter Laps passord knapp
@@ -25,8 +24,10 @@ KnappS = customtkinter.CTkButton(master=app,
                                  border_width=0,
                                  corner_radius=8,
                                  text="SØK!",
+                                 
                                  )
 KnappS.place(relx=0.85, rely=0.1, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
+
 
 
 
@@ -36,7 +37,7 @@ entry = customtkinter.CTkEntry(master=app,
                                width=250,
                                height=25,
                                border_width=2,
-                               corner_radius=10)
+                               corner_radius=10,)                               
 entry.place(relx=0.4, rely=0.1, anchor=tkinter.CENTER) # plaserer Asset Tag boks
 
 
