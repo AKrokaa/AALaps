@@ -8,6 +8,7 @@ customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-b
 
 app = customtkinter.CTk()  # Lager boks
 app.geometry("390x200")
+app.iconbitmap('icon.ico')
 
 label = customtkinter.CTkLabel(app, text="",font=('comic sans', 24,'bold'))
 label.place(relx=0.4, rely=0.4, anchor=tkinter.CENTER)
