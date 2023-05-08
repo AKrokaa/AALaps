@@ -11,7 +11,7 @@ app.geometry("390x200")
 app.iconbitmap('icon.ico')
 
 label = customtkinter.CTkLabel(app, text="",font=('comic sans', 24,'bold'))
-label.place(relx=0.4, rely=0.4, anchor=tkinter.CENTER)
+label.place(relx=0.4, rely=0.7, anchor=tkinter.CENTER)
 
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass(AssetTag):
@@ -46,7 +46,7 @@ KnappSkriv = customtkinter.CTkButton(master=app,
                                  text="Print",
                                  command=SkrivPass
                                  )
-KnappSkriv.place(relx=0.85, rely=0.4, anchor=tkinter.CENTER)
+KnappSkriv.place(relx=0.85, rely=0.7, anchor=tkinter.CENTER)
 
 #Lager Asset Tag input boks
 entry = customtkinter.CTkEntry(master=app,
@@ -56,7 +56,7 @@ entry = customtkinter.CTkEntry(master=app,
                                border_width=2,
                                corner_radius=10,
                                )                               
-entry.place(relx=0.4, rely=0.1, anchor=tkinter.CENTER) # plaserer Asset Tag boks
+entry.place(relx=0.4, rely=0.25, anchor=tkinter.CENTER) # plaserer Asset Tag boks
 
 #lager søke etter Laps passord knapp
 KnappFinn = customtkinter.CTkButton(master=app,
@@ -67,7 +67,7 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  text="Søk!",
                                  command=lambda: FinnPass(entry.get())
                                  )
-KnappFinn.place(relx=0.85, rely=0.1, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
+KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
 #Label som viser lapspassordet
 
