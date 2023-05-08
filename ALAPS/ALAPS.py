@@ -16,10 +16,10 @@ app.geometry("390x200")
 LapsPass = "Dette er ett passord"
 
 
-
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass():
-    print("Gaming")
+    print(entry.get())
+
 
 #Skriver passordet i variablen LapsPass
 def SkrivPass():
@@ -70,8 +70,11 @@ entry = customtkinter.CTkEntry(master=app,
                                width=250,
                                height=25,
                                border_width=2,
-                               corner_radius=10,)                               
+                               corner_radius=10,
+                               )                               
 entry.place(relx=0.4, rely=0.1, anchor=tkinter.CENTER) # plaserer Asset Tag boks
+
+
 
 
 
