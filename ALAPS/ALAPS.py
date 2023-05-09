@@ -38,13 +38,15 @@ def SkrivPass():
 
 
 
+
+
 #Denne knappen er for å skrive 
 KnappSkriv = customtkinter.CTkButton(master=app,
                                  width=50,
                                  height=32,
                                  border_width=0,
                                  corner_radius=8,
-                                 text="Print",
+                                 text="Skriv",
                                  command=SkrivPass
                                  )
 KnappSkriv.place(relx=0.85, rely=0.7, anchor=tkinter.CENTER)
@@ -69,6 +71,24 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  command=lambda: FinnPass(entry.get())
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
+
+
+
+
+def checkbox_event():
+    print("checkbox toggled, current value:", check_var_sek.get())
+
+check_var_sek = customtkinter.StringVar(value="off")
+checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek", command=checkbox_event,
+                                     variable=check_var_sek, onvalue="on", offvalue="off")
+checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
+
+
+
+
+
+
+
 
 
 
