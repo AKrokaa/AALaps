@@ -25,6 +25,54 @@ switch = customtkinter.CTkSwitch(app, text="Light mode", command=lambda: theme(s
                                  variable=switch_var, onvalue="0", offvalue="1")
 switch.place(relx=0.15, rely=0.1, anchor=tkinter.CENTER)
 
+#Dette er custom mode, hvor det blir laget, fjerner og disabler noen bokser
+def advanced_mode(x):
+    if x == "1":
+        label.configure(text="")
+        KnappFinn.configure("disabled")
+        label.configure(state="disabled")
+        entry.configure(state="disabled")
+
+        entry_pass = customtkinter.CTkEntry(master=app,
+                               placeholder_text="Passord",
+                               width=250,
+                               height=25,
+                               border_width=2,
+                               corner_radius=10,
+                               ) 
+        entry_bruker = customtkinter.CTkEntry(master=app,
+                               placeholder_text="Brukernavn",
+                               width=250,
+                               height=25,
+                               border_width=2,
+                               corner_radius=10,
+                               )                               
+        entry_pass.place(relx=0.4, rely=0.65, anchor=tkinter.CENTER)                              
+        entry_bruker.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
+
+
+
+        
+
+
+
+
+
+    else: 
+        KnappFinn.configure("normal")
+        label.configure(state="Normal")
+        entry.configure(state="Normal")
+        
+        
+
+
+check_var_Advanced = customtkinter.StringVar(value="0")
+checkbox_Advanced = customtkinter.CTkCheckBox(app, text="Advanced", command=lambda: advanced_mode(check_var_Advanced.get()),
+                                     variable=check_var_Advanced, onvalue="1", offvalue="0")
+checkbox_Advanced.place(relx=0.59, rely=0.9, anchor=tkinter.CENTER)
+
+
+
 
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass(AssetTag):
@@ -68,6 +116,12 @@ checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass",
                                      variable=check_var_barepass, onvalue="1", offvalue="0")
 checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER)
 
+
+
+
+
+
+
 #Denne knappen er for å skrive 
 KnappSkriv = customtkinter.CTkButton(master=app,
                                  width=50,
@@ -99,6 +153,17 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  command=lambda: FinnPass(entry.get())
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
+
+
+def radiobutton_event():
+    print("radiobutton toggled, current value:", radio_var.get())
+
+
+
+
+
+
+
 
 #dette er slik att boksen looper
 app.mainloop()
