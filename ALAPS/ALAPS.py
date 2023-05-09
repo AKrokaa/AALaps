@@ -1,17 +1,8 @@
-"""
-
-
-
-
-
-"""
-
 import time
 import subprocess
 import tkinter
 import customtkinter
 import pyautogui
-
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
@@ -20,7 +11,7 @@ app = customtkinter.CTk()  # Lager boks
 app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)")
 app.geometry("390x200")
 
-label = customtkinter.CTkLabel(app, text="",font=('comic sans', 24,'bold'))
+label = customtkinter.CTkLabel(app, text="",font=('ariel', 24,'bold'))
 label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
 
 def theme(x):
@@ -44,8 +35,6 @@ def FinnPass(AssetTag):
     if result.returncode == 0:
         LapsPass = result.stdout.strip()
         label.configure(text=LapsPass)
-    else:
-        label.configure(text="Error, failed to retrieve password.")
 
 #Skriver passordet i variablen LapsPass
 def SkrivPass(x, y):
@@ -67,8 +56,6 @@ def SkrivPass(x, y):
         time.sleep(0.5)
         pyautogui.write(LapsPass)
         pyautogui.press("enter")
-
-
 
 check_var_sek = customtkinter.StringVar(value="0")
 checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek",
@@ -112,8 +99,6 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  command=lambda: FinnPass(entry.get())
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
-
-
 
 #dette er slik att boksen looper
 app.mainloop()
