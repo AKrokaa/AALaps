@@ -57,12 +57,14 @@ def SkrivPass(x, y):
         pyautogui.press("tab")
         pyautogui.keyUp("alt")
 
-    if x == "1":
+    if x == "0":
+        time.sleep(0.5)
         pyautogui.write('.\Administrator')
         pyautogui.press("tab")
         pyautogui.write(LapsPass)
         pyautogui.press("enter")
-    elif x == "0":
+    elif x == "1":
+        time.sleep(0.5)
         pyautogui.write(LapsPass)
         pyautogui.press("enter")
 
