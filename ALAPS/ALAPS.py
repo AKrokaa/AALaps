@@ -12,6 +12,8 @@ import tkinter
 import customtkinter
 import pyautogui
 
+
+customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()  # Lager boks
@@ -26,6 +28,12 @@ def theme(x):
         customtkinter.set_appearance_mode("dark")
     elif x == "0":
         customtkinter.set_appearance_mode("light")
+
+switch_var = customtkinter.StringVar(value="1")
+switch = customtkinter.CTkSwitch(app, text="Light mode", command=lambda: theme(switch_var.get()),
+                                 variable=switch_var, onvalue="0", offvalue="1")
+switch.place(relx=0.15, rely=0.1, anchor=tkinter.CENTER)
+
 
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass(AssetTag):
@@ -58,19 +66,16 @@ def SkrivPass(x, y):
         pyautogui.write(LapsPass)
         pyautogui.press("enter")
 
-def checkbox_event():
-    print("checkbox toggled, current value:", check_var_sek.get())
+
 
 check_var_sek = customtkinter.StringVar(value="0")
-checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek", command=checkbox_event,
+checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek",
                                      variable=check_var_sek, onvalue="1", offvalue="0")
 checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
 
-def checkbox_event():
-    print("checkbox toggled, current value:", check_var_barepass.get())
 
 check_var_barepass = customtkinter.StringVar(value="0")
-checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass", command=checkbox_event,
+checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass",
                                      variable=check_var_barepass, onvalue="1", offvalue="0")
 checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER)
 
@@ -106,10 +111,7 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
-"""
-Ønsker bruk av customtkinter.CTkSwitch som sender opp til function theme(x)
-"1" er dark-mode, "2" er light-mode
-"""
+
 
 #dette er slik att boksen looper
 app.mainloop()
