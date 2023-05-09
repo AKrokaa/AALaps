@@ -7,8 +7,8 @@ customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dar
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()  # Lager boks
+app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)")
 app.geometry("390x200")
-#app.iconbitmap('icon.ico')
 
 label = customtkinter.CTkLabel(app, text="",font=('comic sans', 24,'bold'))
 label.place(relx=0.4, rely=0.7, anchor=tkinter.CENTER)
@@ -25,7 +25,6 @@ def FinnPass(AssetTag):
     else:
         label.configure(text="Error, failed to retrieve password.")
 
-    #label.configure(text= LapsPass)
 
 #Skriver passordet i variablen LapsPass
 def SkrivPass():
@@ -36,6 +35,8 @@ def SkrivPass():
     pyautogui.press("tab")
     pyautogui.write(LapsPass)
     pyautogui.press("enter")
+
+
 
 #Denne knappen er for å skrive 
 KnappSkriv = customtkinter.CTkButton(master=app,
@@ -69,11 +70,6 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
-#Label som viser lapspassordet
 
-#label.configure(text=LapsPass)
 
 app.mainloop()
-
-#ComputerName = input("Input Asset-TAG:\n")
-#print(comp(ComputerName))
