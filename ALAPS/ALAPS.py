@@ -100,4 +100,13 @@ checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek", command=checkbox_eve
 checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
 
 
+def checkbox_event():
+    print("checkbox toggled, current value:", check_var_barepass.get())
+
+check_var_barepass = customtkinter.StringVar(value="off")
+checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass", command=checkbox_event,
+                                     variable=check_var_barepass, onvalue="on", offvalue="off")
+checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER)
+
+
 app.mainloop()
