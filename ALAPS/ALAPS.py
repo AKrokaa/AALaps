@@ -1,9 +1,17 @@
+"""
+
+
+
+
+
+"""
+
+import time
 import subprocess
 import tkinter
 import customtkinter
 import pyautogui
 
-customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()  # Lager boks
@@ -12,6 +20,12 @@ app.geometry("390x200")
 
 label = customtkinter.CTkLabel(app, text="",font=('comic sans', 24,'bold'))
 label.place(relx=0.4, rely=0.7, anchor=tkinter.CENTER)
+
+def theme(x):
+    if x == 1:
+        customtkinter.set_appearance_mode("dark")
+    elif x == 0:
+        customtkinter.set_appearance_mode("light")
 
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass(AssetTag):
@@ -27,18 +41,23 @@ def FinnPass(AssetTag):
 
 
 #Skriver passordet i variablen LapsPass
-def SkrivPass():
-    pyautogui.keyDown("alt")
-    pyautogui.press("tab")
-    pyautogui.keyUp("alt")
-    pyautogui.write('.\Administrator')
-    pyautogui.press("tab")
-    pyautogui.write(LapsPass)
-    pyautogui.press("enter")
+def SkrivPass(x, y):
+    
+    if y == 1:
+        time.sleep(3)
+    else:
+        pyautogui.keyDown("alt")
+        pyautogui.press("tab")
+        pyautogui.keyUp("alt")
 
-
-
-
+    if x == 1:
+        pyautogui.write('.\Administrator')
+        pyautogui.press("tab")
+        pyautogui.write(LapsPass)
+        pyautogui.press("enter")
+    elif x == 0:
+        pyautogui.write(LapsPass)
+        pyautogui.press("enter")
 
 #Denne knappen er for å skrive 
 KnappSkriv = customtkinter.CTkButton(master=app,
@@ -72,9 +91,6 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  )
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
-
-
-
 def checkbox_event():
     print("checkbox toggled, current value:", check_var_sek.get())
 
@@ -82,14 +98,6 @@ check_var_sek = customtkinter.StringVar(value="off")
 checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek", command=checkbox_event,
                                      variable=check_var_sek, onvalue="on", offvalue="off")
 checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
-
-
-
-
-
-
-
-
 
 
 app.mainloop()
