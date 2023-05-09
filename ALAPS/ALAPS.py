@@ -109,4 +109,5 @@ checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass", command=che
 checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER)
 
 
+#dette er slik att boksen looper
 app.mainloop()
