@@ -7,8 +7,6 @@ import pyautogui
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
-
-
 app = customtkinter.CTk()  # Lager boks
 app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)")
 app.geometry("390x200")
@@ -19,6 +17,7 @@ entry_pass = customtkinter.CTkEntry(master=app,
                         height=25,
                         border_width=2,
                         corner_radius=10,
+                        show="*"
                         ) 
 entry_bruker = customtkinter.CTkEntry(master=app,
                         placeholder_text="Brukernavn",
@@ -60,7 +59,7 @@ def advanced_mode(x):
         entry.configure(state="disabled")                        
         entry_pass.place(relx=0.4, rely=0.65, anchor=tkinter.CENTER)                              
         entry_bruker.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
-        KnappSkriv.configure(command=lambda: SkrivPass(entry.get(), check_var_sek.get(), entry_bruker.get(), entry_pass.get()))
+        KnappSkriv.configure(command=lambda: SkrivPass(check_var_barepass.get(), check_var_sek.get(), entry_bruker.get(), entry_pass.get()))
 
     elif x == "0":
         label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER) 
@@ -69,11 +68,12 @@ def advanced_mode(x):
         entry.configure(state="normal")
         entry_pass.place_forget()
         entry_bruker.place_forget()
+        KnappSkriv.configure(command=lambda: SkrivPass(check_var_barepass.get(), check_var_sek.get(), '.\Administrator', LapsPass))
 
 check_var_Advanced = customtkinter.StringVar(value="0")
 checkbox_Advanced = customtkinter.CTkCheckBox(app, text="Advanced", command=lambda: advanced_mode(check_var_Advanced.get()),
                                      variable=check_var_Advanced, onvalue="1", offvalue="0")
-checkbox_Advanced.place(relx=0.60, rely=0.9, anchor=tkinter.CENTER)
+checkbox_Advanced.place(relx=0.5965, rely=0.9, anchor=tkinter.CENTER)
 
 #denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
 def FinnPass(AssetTag):
@@ -84,15 +84,10 @@ def FinnPass(AssetTag):
 
     if result.returncode == 0:
         LapsPass = result.stdout.strip()
-        Username = '.\Administrator'
         label.configure(text=LapsPass)
 
 #Skriver passordet i variablen LapsPass
 def SkrivPass(x, y, name, password):
-    
-    u = str(name)
-    p = str(password)
-
     if y == "1":
         time.sleep(3)
     else:
@@ -102,13 +97,13 @@ def SkrivPass(x, y, name, password):
 
     if x == "0":
         time.sleep(0.5)
-        pyautogui.write(u)
+        pyautogui.write(str(name))
         pyautogui.press("tab")
-        pyautogui.write(p)
+        pyautogui.write(str(password))
         pyautogui.press("enter")
     elif x == "1":
         time.sleep(0.5)
-        pyautogui.write(p)
+        pyautogui.write(str(password))
         pyautogui.press("enter")
 
 check_var_sek = customtkinter.StringVar(value="0")
