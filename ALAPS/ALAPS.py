@@ -7,55 +7,28 @@ import pyautogui
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
 
-app = customtkinter.CTk()  # Lager boks
-app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)")
-app.geometry("390x200")
+app = customtkinter.CTk()  # lager main boks
+app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)") # tittelen på toppen
+app.geometry("390x200") # størrelsen på boksen
 
-entry_pass = customtkinter.CTkEntry(master=app,
-                        placeholder_text="Passord",
-                        width=250,
-                        height=25,
-                        border_width=2,
-                        corner_radius=10,
-                        show="*"
-                        ) 
-entry_bruker = customtkinter.CTkEntry(master=app,
-                        placeholder_text="Brukernavn",
-                        width=250,
-                        height=25,
-                        border_width=2,
-                        corner_radius=10,
-                        )       
+# status på bokser, startverdi velges her.
+switch_var = customtkinter.StringVar(value="0")
+check_var_sek = customtkinter.StringVar(value="0")
+check_var_barepass = customtkinter.StringVar(value="0")
+check_var_Advanced = customtkinter.StringVar(value="0")
 
-KnappSkriv = customtkinter.CTkButton(master=app,
-                                 width=50,
-                                 height=32,
-                                 border_width=0,
-                                 corner_radius=8,
-                                 text="Skriv",
-                                 command=lambda: SkrivPass(check_var_barepass.get(), check_var_sek.get(), Username, LapsPass)
-                                 )
-
-label = customtkinter.CTkLabel(app, text="",font=('ariel', 24,'bold'))
-label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
-
+# function for å endre tema
 def theme(x):
-    if x == "1":
+    if x == "0":
         customtkinter.set_appearance_mode("dark")
-    elif x == "0":
+    elif x == "1":
         customtkinter.set_appearance_mode("light")
 
-switch_var = customtkinter.StringVar(value="1")
-switch = customtkinter.CTkSwitch(app, text="Light mode", command=lambda: theme(switch_var.get()),
-                                 variable=switch_var, onvalue="0", offvalue="1")
-switch.place(relx=0.15, rely=0.1, anchor=tkinter.CENTER)
-
-#Dette er custom mode, hvor det blir laget, fjerner og disabler noen bokser
+# advanced_mode gir mulighet for å legge inn eget brukernavn og passord
 def advanced_mode(x):
     if x == "1":
         label.place_forget()
         KnappFinn.configure("disabled")
-        label.configure(state="disabled")
         entry.configure(state="disabled")                        
         entry_pass.place(relx=0.4, rely=0.65, anchor=tkinter.CENTER)                              
         entry_bruker.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
@@ -64,29 +37,22 @@ def advanced_mode(x):
     elif x == "0":
         label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER) 
         KnappFinn.configure(state="normal")
-        label.configure(state="normal")
         entry.configure(state="normal")
         entry_pass.place_forget()
         entry_bruker.place_forget()
         KnappSkriv.configure(command=lambda: SkrivPass(check_var_barepass.get(), check_var_sek.get(), '.\Administrator', LapsPass))
 
-check_var_Advanced = customtkinter.StringVar(value="0")
-checkbox_Advanced = customtkinter.CTkCheckBox(app, text="Advanced", command=lambda: advanced_mode(check_var_Advanced.get()),
-                                     variable=check_var_Advanced, onvalue="1", offvalue="0")
-checkbox_Advanced.place(relx=0.5965, rely=0.9, anchor=tkinter.CENTER)
-
-#denne skal finne laps passordet og putte det inn i en variabel (LapsPass)
+# sender inn assettag igjennom en powershell kommando og stripper den ned helt til det er kun LAPS-passord, og setter verdien i variabelen "LapsPass"
 def FinnPass(AssetTag):
     command = f"powershell -Command \"$password = (Get-AdmPwdPassword -ComputerName {AssetTag}).Password; Write-Output $password\""
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
     global LapsPass
-    global Username
 
     if result.returncode == 0:
         LapsPass = result.stdout.strip()
         label.configure(text=LapsPass)
 
-#Skriver passordet i variablen LapsPass
+# skriver passordet i variablen LapsPass, utifra om "3 sek" og "Bare Pass" er huket av.
 def SkrivPass(x, y, name, password):
     if y == "1":
         time.sleep(3)
@@ -106,30 +72,45 @@ def SkrivPass(x, y, name, password):
         pyautogui.write(str(password))
         pyautogui.press("enter")
 
-check_var_sek = customtkinter.StringVar(value="0")
-checkbox_sek = customtkinter.CTkCheckBox(app, text="3 sek",
-                                     variable=check_var_sek, onvalue="1", offvalue="0")
-checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
+# advanced_mode: selv-input felt av eget passord
+entry_pass = customtkinter.CTkEntry(master=app,
+                                    placeholder_text="Passord",
+                                    width=250,
+                                    height=25,
+                                    border_width=2,
+                                    corner_radius=10,
+                                    show="*"
+                                    )
+ 
+# advanced_mode: selv-input felt av eget brukernavn
+entry_bruker = customtkinter.CTkEntry(master=app,
+                                      placeholder_text="Brukernavn",
+                                      width=250,
+                                      height=25,
+                                      border_width=2,
+                                      corner_radius=10,
+                                      )       
 
-check_var_barepass = customtkinter.StringVar(value="0")
-checkbox_barepass = customtkinter.CTkCheckBox(app, text="Bare Pass",
-                                     variable=check_var_barepass, onvalue="1", offvalue="0")
-checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER)
-
-#Denne knappen er for å skrive 
-KnappSkriv.place(relx=0.85, rely=0.5, anchor=tkinter.CENTER)
-
-#Lager Asset Tag input boks
+# input-felt for Asset-Tag
 entry = customtkinter.CTkEntry(master=app,
                                placeholder_text="Asset-Tag",
                                width=250,
                                height=25,
                                border_width=2,
                                corner_radius=10,
-                               )                               
-entry.place(relx=0.4, rely=0.25, anchor=tkinter.CENTER) # plaserer Asset Tag boks
+                               )
 
-#lager søke etter Laps passord knapp
+# knapp for å kalle på "SkrivPass"
+KnappSkriv = customtkinter.CTkButton(master=app,
+                                 width=50,
+                                 height=32,
+                                 border_width=0,
+                                 corner_radius=8,
+                                 text="Skriv",
+                                 command=lambda: SkrivPass(check_var_barepass.get(), check_var_sek.get(), ".\Administrator", LapsPass)
+                                )
+
+# knapp for FinnPass funksjonen
 KnappFinn = customtkinter.CTkButton(master=app,
                                  width=50,
                                  height=32,
@@ -138,7 +119,52 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  text="Søk!",
                                  command=lambda: FinnPass(entry.get())
                                  )
+
+# bryter for light-mode og dark-mode (dark-mode standard)
+switch = customtkinter.CTkSwitch(app, 
+                                 text="Light mode", 
+                                 command=lambda: theme(switch_var.get()),
+                                 variable=switch_var, 
+                                 onvalue="1", offvalue="0"
+                                 )
+
+# checkbox for om SkrivPass skal vente 3sek før den kjører
+checkbox_sek = customtkinter.CTkCheckBox(app, 
+                                         text="3 sek",
+                                         variable=check_var_sek, 
+                                         onvalue="1", offvalue="0"
+                                         )
+
+# checkbox for om SkrivPass skal ikke printe ut ./Administrator eller selv-input brukernavn
+checkbox_barepass = customtkinter.CTkCheckBox(app, 
+                                              text="Bare Pass",
+                                              variable=check_var_barepass, 
+                                              onvalue="1", offvalue="0"
+                                              )
+
+# checkbox for å huke av om advanced_mode funksjonen skal gjennomføres. (selv-input av brukernavn og passord)
+checkbox_Advanced = customtkinter.CTkCheckBox(app, 
+                                              text="Advanced", 
+                                              command=lambda: advanced_mode(check_var_Advanced.get()),
+                                              variable=check_var_Advanced, 
+                                              onvalue="1", offvalue="0"
+                                              )
+                           
+# viser LAPS passordet.
+label = customtkinter.CTkLabel(app, 
+                               text="",
+                               font=('ariel', 24,'bold')
+                               )
+
+# plassering av alle felt, brytere og knapper.
+checkbox_Advanced.place(relx=0.5965, rely=0.9, anchor=tkinter.CENTER)
+entry.place(relx=0.4, rely=0.25, anchor=tkinter.CENTER) # plaserer Asset Tag boks
+label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
+switch.place(relx=0.15, rely=0.1, anchor=tkinter.CENTER)
+checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
+checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER) #Denne knappen er for å skrive 
+KnappSkriv.place(relx=0.85, rely=0.5, anchor=tkinter.CENTER) #Lager Asset Tag input boks
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
-#dette er slik att boksen looper
-app.mainloop()
+# dette er slik att boksen looper
+app.mainloop() 
