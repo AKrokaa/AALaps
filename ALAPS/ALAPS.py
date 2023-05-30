@@ -12,17 +12,19 @@ app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)") # tittelen på toppen
 app.geometry("390x200") # størrelsen på boksen
 
 # status på bokser, startverdi velges her.
-switch_var = customtkinter.StringVar(value="0")
 check_var_sek = customtkinter.StringVar(value="0")
 check_var_barepass = customtkinter.StringVar(value="0")
 check_var_Advanced = customtkinter.StringVar(value="0")
 
 # function for å endre tema
 def theme(x):
-    if x == "0":
+    if x == "Dark":
         customtkinter.set_appearance_mode("dark")
-    elif x == "1":
+    elif x == "Light":
         customtkinter.set_appearance_mode("light")
+    elif x == "Kristoffer":
+        customtkinter.set_appearance_mode("Kristoffer")
+
 
 # advanced_mode gir mulighet for å legge inn eget brukernavn og passord
 def advanced_mode(x):
@@ -120,13 +122,14 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  command=lambda: FinnPass(entry.get())
                                  )
 
-# bryter for light-mode og dark-mode (dark-mode standard)
-switch = customtkinter.CTkSwitch(app, 
-                                 text="Light mode", 
-                                 command=lambda: theme(switch_var.get()),
-                                 variable=switch_var, 
-                                 onvalue="1", offvalue="0"
-                                 )
+# bryter for light-mode og dark-mode (dark-mode standard)                                      )
+
+
+optionmenu_var = customtkinter.StringVar(value="Dark")
+optionmenu = customtkinter.CTkOptionMenu(app,values=["Light", "Dark","Kristoffer"],
+                                         command=lambda: theme(optionmenu_var),
+                                         variable=optionmenu_var)
+
 
 # checkbox for om SkrivPass skal vente 3sek før den kjører
 checkbox_sek = customtkinter.CTkCheckBox(app, 
@@ -160,11 +163,14 @@ label = customtkinter.CTkLabel(app,
 checkbox_Advanced.place(relx=0.5965, rely=0.9, anchor=tkinter.CENTER)
 entry.place(relx=0.4, rely=0.25, anchor=tkinter.CENTER) # plaserer Asset Tag boks
 label.place(relx=0.4, rely=0.5, anchor=tkinter.CENTER)
-switch.place(relx=0.15, rely=0.1, anchor=tkinter.CENTER)
+optionmenu.place(relx=0.2, rely=0.1, anchor=tkinter.CENTER)
 checkbox_sek.place(relx=0.16, rely=0.9, anchor=tkinter.CENTER)
 checkbox_barepass.place(relx=0.34, rely=0.9, anchor=tkinter.CENTER) #Denne knappen er for å skrive 
 KnappSkriv.place(relx=0.85, rely=0.5, anchor=tkinter.CENTER) #Lager Asset Tag input boks
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
 # dette er slik att boksen looper
+
+#Test
+
 app.mainloop() 
