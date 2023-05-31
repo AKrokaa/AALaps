@@ -5,7 +5,7 @@ import customtkinter
 import pyautogui
 
 customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
+customtkinter.set_default_color_theme(".\dark-blue.json")  # Themes: blue (default), dark-blue, green
 
 app = customtkinter.CTk()  # lager main boks
 app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)") # tittelen på toppen
@@ -23,7 +23,7 @@ def theme(x):
     elif x == "Light":
         customtkinter.set_appearance_mode("light")
     elif x == "Kristoffer":
-        customtkinter.set_appearance_mode("Kristoffer")
+        customtkinter.set_default_color_theme(".\Kristoffer_farge.json")
 
 
 # advanced_mode gir mulighet for å legge inn eget brukernavn og passord
@@ -126,7 +126,7 @@ KnappFinn = customtkinter.CTkButton(master=app,
 # Dropdown meny for tema
 
 optionmenu_var = customtkinter.StringVar(value="Dark")
-optionmenu = customtkinter.CTkOptionMenu(app, values=["Dark", "Light","Kristoffer"],
+optionmenu = customtkinter.CTkOptionMenu(app, values=["Light", "Dark","Kristoffer"],
                                          command=theme,
                                          variable=optionmenu_var
 
