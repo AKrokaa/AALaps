@@ -95,7 +95,7 @@ entry_bruker = customtkinter.CTkEntry(master=app,
 
 # input-felt for Asset-Tag
 entry = customtkinter.CTkEntry(master=app,
-                               placeholder_text="Asset-Tag",
+                               placeholder_text="Maskin navn",
                                width=250,
                                height=25,
                                border_width=2,
@@ -122,13 +122,16 @@ KnappFinn = customtkinter.CTkButton(master=app,
                                  command=lambda: FinnPass(entry.get())
                                  )
 
-# bryter for light-mode og dark-mode (dark-mode standard)                                      )
 
+# Dropdown meny for tema
 
 optionmenu_var = customtkinter.StringVar(value="Dark")
-optionmenu = customtkinter.CTkOptionMenu(app,values=["Light", "Dark","Kristoffer"],
-                                         command=lambda: theme(optionmenu_var),
-                                         variable=optionmenu_var)
+optionmenu = customtkinter.CTkOptionMenu(app, values=["Dark", "Light","Kristoffer"],
+                                         command=theme,
+                                         variable=optionmenu_var
+
+                                         )
+optionmenu.set("Dark")
 
 
 # checkbox for om SkrivPass skal vente 3sek før den kjører
@@ -170,7 +173,4 @@ KnappSkriv.place(relx=0.85, rely=0.5, anchor=tkinter.CENTER) #Lager Asset Tag in
 KnappFinn.place(relx=0.85, rely=0.25, anchor=tkinter.CENTER) #plassere Søk knappen i boksen
 
 # dette er slik att boksen looper
-
-#Test
-
 app.mainloop() 
