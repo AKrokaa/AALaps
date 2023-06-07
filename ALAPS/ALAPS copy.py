@@ -6,6 +6,9 @@ import pyautogui
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")  # Themes: blue (default), dark-blue, green
+customtkinter.load_color_theme_from_file(".\dark-blue.json")
+
+
 
 app = customtkinter.CTk()
 app.title("(☞ﾟヮﾟ)☞ AALAPS ☜(ﾟヮﾟ☜)")
